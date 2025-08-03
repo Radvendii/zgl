@@ -1335,6 +1335,19 @@ pub fn uniformMatrix2fv(location: ?u32, transpose: bool, items: []const [2][2]f3
     }
 }
 
+pub fn uniformMatrix3fv(location: ?u32, transpose: bool, items: []const [3][3]f32) void {
+    if (location) |loc| {
+        binding.uniformMatrix3fv(
+            @as(types.Int, @intCast(loc)),
+            cs2gl(items.len),
+            b2gl(transpose),
+
+            @as(*const f32, @ptrCast(items.ptr)),
+        );
+        checkError();
+    }
+}
+
 pub fn uniformMatrix4fv(location: ?u32, transpose: bool, items: []const [4][4]f32) void {
     if (location) |loc| {
         binding.uniformMatrix4fv(
